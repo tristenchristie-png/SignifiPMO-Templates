@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Template Email Generator</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -18,348 +13,62 @@
             padding: 20px;
             animation: gradientShift 10s ease infinite;
         }
-        
         @keyframes gradientShift {
             0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); }
             50% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%); }
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            color: white;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.95;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .template-selector {
-            padding: 30px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-bottom: 3px solid #dee2e6;
-            text-align: center;
-        }
-        
-        .template-selector label {
-            font-weight: 700;
-            color: #2c3e50;
-            margin-right: 20px;
-            font-size: 1.1em;
-        }
-        
-        .template-selector select {
-            padding: 15px 20px;
-            border: 3px solid #ddd;
-            border-radius: 12px;
-            font-size: 16px;
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .template-selector select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .form-container {
-            padding: 40px;
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-        }
-        
-        .template-form {
-            display: none;
-        }
-        
-        .template-form.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .form-section {
-            background: linear-gradient(135deg, #ffffff, #f1f3f4);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-left: 5px solid #667eea;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-        }
-        
-        .form-section h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .section-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: white;
-            font-weight: bold;
-        }
-        
+        .container { max-width: 1200px; margin: 0 auto; background: rgba(255,255,255,0.95); border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; backdrop-filter: blur(10px); }
+        .header { background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); color: white; padding: 40px; text-align: center; position: relative; overflow: hidden; }
+        .header::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite; }
+        @keyframes rotate { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+        .header h1 { font-size: 3em; margin-bottom: 15px; position: relative; z-index: 2; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 1.2em; opacity: 0.95; position: relative; z-index: 2; }
+        .template-selector { padding: 30px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-bottom: 3px solid #dee2e6; text-align: center; }
+        .template-selector label { font-weight: 700; color: #2c3e50; margin-right: 20px; font-size: 1.1em; }
+        .template-selector select { padding: 15px 20px; border: 3px solid #ddd; border-radius: 12px; font-size: 16px; background: linear-gradient(135deg, #ffffff, #f8f9fa); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .template-selector select:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 4px rgba(102,126,234,0.2); transform: translateY(-2px); }
+        .form-container { padding: 40px; background: linear-gradient(135deg, #ffffff, #f8f9fa); }
+        .template-form { display: none; }
+        .template-form.active { display: block; animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(20px);} to{ opacity:1; transform: translateY(0);} }
+        .form-section { background: linear-gradient(135deg, #ffffff, #f1f3f4); border-radius: 15px; padding: 25px; margin-bottom: 25px; border-left: 5px solid #667eea; box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
+        .form-section h3 { color:#2c3e50; margin-bottom:20px; font-size:1.3em; display:flex; align-items:center; gap:10px; }
+        .section-icon { width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; color:white; font-weight:bold; }
         .icon-info { background: linear-gradient(135deg, #3498db, #2980b9); }
         .icon-tech { background: linear-gradient(135deg, #e74c3c, #c0392b); }
         .icon-config { background: linear-gradient(135deg, #f39c12, #e67e22); }
         .icon-contact { background: linear-gradient(135deg, #27ae60, #229954); }
         .icon-special { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            transform: translateY(-1px);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        .form-row-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-        }
-        
-        @media (max-width: 768px) {
-            .form-row, .form-row-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .checkbox-item:hover {
-            background: linear-gradient(135deg, #e9ecef, #dee2e6);
-            transform: translateY(-1px);
-        }
-        
-        .checkbox-item input[type="checkbox"] {
-            width: auto;
-            margin: 0;
-            accent-color: #667eea;
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid #e9ecef;
-        }
-        
-        .btn {
-            padding: 18px 35px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
-            background: linear-gradient(135deg, #764ba2, #667eea);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(149, 165, 166, 0.4);
-        }
-        
-        .email-preview {
-            margin-top: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            border: 3px solid #dee2e6;
-            display: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .email-preview h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .email-content {
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-            padding: 25px;
-            border-radius: 12px;
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-            border: 2px solid #dee2e6;
-            max-height: 500px;
-            overflow-y: auto;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .copy-btn {
-            margin-top: 20px;
-            background: linear-gradient(135deg, #27ae60, #229954);
-            color: white;
-        }
-        
-        .copy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(39, 174, 96, 0.4);
-        }
-        
-        .success-message {
-            background: linear-gradient(135deg, #d4edda, #c3e6cb);
-            color: #155724;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: none;
-            border: 2px solid #b8daff;
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        .template-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 10px;
-            color: white;
-        }
-        
+        .form-group { margin-bottom:20px; }
+        .form-group label { display:block; font-weight:600; color:#2c3e50; margin-bottom:8px; font-size:14px; }
+        .form-group input, .form-group select, .form-group textarea { width:100%; padding:12px 15px; border:2px solid #e9ecef; border-radius:10px; font-size:16px; transition: all 0.3s ease; background: linear-gradient(135deg, #ffffff, #f8f9fa); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:#667eea; box-shadow:0 0 0 3px rgba(102,126,234,0.1); transform: translateY(-1px); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-row { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+        .form-row-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:15px; }
+        @media (max-width:768px){ .form-row, .form-row-3 { grid-template-columns: 1fr; } }
+        .checkbox-group { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:15px; margin-top:10px; }
+        .checkbox-item { display:flex; align-items:center; gap:8px; padding:10px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius:8px; transition: all 0.3s ease; }
+        .checkbox-item:hover { background: linear-gradient(135deg, #e9ecef, #dee2e6); transform: translateY(-1px); }
+        .checkbox-item input[type="checkbox"] { width:auto; margin:0; accent-color:#667eea; }
+        .button-group { display:flex; gap:20px; justify-content:center; margin-top:40px; padding-top:30px; border-top:2px solid #e9ecef; }
+        .btn { padding:18px 35px; border:none; border-radius:12px; font-size:16px; font-weight:600; cursor:pointer; transition: all 0.3s ease; text-decoration:none; display:inline-block; text-align:center; box-shadow:0 6px 12px rgba(0,0,0,0.15); }
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color:white; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow:0 12px 24px rgba(102,126,234,0.4); background: linear-gradient(135deg, #764ba2, #667eea); }
+        .btn-secondary { background: linear-gradient(135deg, #95a5a6, #7f8c8d); color:white; }
+        .btn-secondary:hover { transform: translateY(-3px); box-shadow:0 12px 24px rgba(149,165,166,0.4); }
+        .email-preview { margin-top:40px; padding:30px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius:15px; border:3px solid #dee2e6; display:none; box-shadow:0 10px 20px rgba(0,0,0,0.1); }
+        .email-preview h3 { color:#2c3e50; margin-bottom:20px; font-size:1.4em; display:flex; align-items:center; gap:10px; }
+        .email-content { background: linear-gradient(135deg, #ffffff, #f8f9fa); padding:25px; border-radius:12px; font-family:'Courier New', monospace; white-space:pre-wrap; border:2px solid #dee2e6; max-height:500px; overflow-y:auto; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        .copy-btn { margin-top:20px; background: linear-gradient(135deg, #27ae60, #229954); color:white; }
+        .copy-btn:hover { transform: translateY(-3px); box-shadow:0 12px 24px rgba(39,174,96,0.4); }
+        .success-message { background: linear-gradient(135deg, #d4edda, #c3e6cb); color:#155724; padding:15px 20px; border-radius:10px; margin-top:15px; display:none; border:2px solid #b8daff; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity:0; transform: translateX(-20px);} to { opacity:1; transform: translateX(0);} }
+        .template-badge { display:inline-block; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-left:10px; color:white; }
         .badge-installation { background: linear-gradient(135deg, #3498db, #2980b9); }
         .badge-qa { background: linear-gradient(135deg, #e74c3c, #c0392b); }
         .badge-ui { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .other-input { display:none; margin-top:10px; }
     </style>
 </head>
 <body>
@@ -368,7 +77,7 @@
             <h1>🚀 Multi-Template Email Generator</h1>
             <p>Create professional installation tickets, QA checklists, and UI requests with style</p>
         </div>
-        
+
         <div class="template-selector">
             <label for="templateSelect">🎯 Choose Your Template:</label>
             <select id="templateSelect">
@@ -377,18 +86,16 @@
                 <option value="ui">🎨 UI Request</option>
             </select>
         </div>
-        
+
         <div class="form-container">
             <!-- Installation Ticket Form -->
             <div id="installationForm" class="template-form active">
                 <div class="form-section">
                     <h3><span class="section-icon icon-info">ℹ️</span>Basic Information<span class="template-badge badge-installation">Installation</span></h3>
-                    
                     <div class="form-group">
                         <label for="inst_clientEvent">Client / Event Name:</label>
                         <input type="text" id="inst_clientEvent" name="inst_clientEvent" required>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_salesOrder">Sales Order (SO):</label>
@@ -399,12 +106,10 @@
                             <input type="text" id="inst_channelPartner" name="inst_channelPartner" placeholder="Direct" required>
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="inst_namingConvention">Naming Convention and Address:</label>
                         <textarea id="inst_namingConvention" name="inst_namingConvention" placeholder="Kiosk ID(s) and full address, including building name if applicable" required></textarea>
                     </div>
-                    
                     <div class="form-group">
                         <label for="inst_endClient">End Client (CX):</label>
                         <input type="text" id="inst_endClient" name="inst_endClient" required>
@@ -413,7 +118,6 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-tech">📅</span>Dates & Timeline</h3>
-                    
                     <div class="form-row-3">
                         <div class="form-group">
                             <label for="inst_shippingDate">Shipping Date:</label>
@@ -428,7 +132,6 @@
                             <input type="date" id="inst_installationDate" name="inst_installationDate" required>
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="inst_vinylDate">Vinyl Date:</label>
                         <input type="date" id="inst_vinylDate" name="inst_vinylDate">
@@ -437,51 +140,63 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-config">⚙️</span>Technical Configuration</h3>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_kioskType">Kiosk Type:</label>
-                            <select id="inst_kioskType" name="inst_kioskType" required>
+                            <select id="inst_kioskType" name="inst_kioskType" onchange="toggleOtherField('inst_kioskType','inst_kioskType_other')" required>
                                 <option value="">Select Kiosk Type</option>
                                 <option value="SparkXL">SparkXL</option>
-                                <option value="Companion">Companion</option>
-                                <option value="Enclosure">Enclosure</option>
+                                <option value="Spark Touch">Spark Touch</option>
+                                <option value="Retail Enclosure">Retail Enclosure</option>
+                                <option value="10'Smart Companion">10'Smart Companion</option>
+                                <option value="15'Smart Companion">15'Smart Companion</option>
+                                <option value="Control Locker">Control Locker</option>
+                                <option value="HDL Locker">HDL Locker</option>
+                                <option value="Stand Up Ted">Stand Up Ted</option>
+                                <option value="Sit-Down Ted">Sit-Down Ted</option>
+                                <option value="Smart Drawer">Smart Drawer</option>
+                                <option value="SK Dispenser">SK Dispenser</option>
+                                <option value="Wall-mount Kiosk">Wall-mount Kiosk</option>
+                                <option value="Key Locker">Key Locker</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_kioskType_other" name="inst_kioskType_other" class="other-input" placeholder="Specify other kiosk type">
                         </div>
                         <div class="form-group">
                             <label for="inst_vendingElevator">Vending Unit Elevator:</label>
                             <input type="text" id="inst_vendingElevator" name="inst_vendingElevator" placeholder="N/A">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_screenSize">Screen Size:</label>
-                            <select id="inst_screenSize" name="inst_screenSize" required>
+                            <select id="inst_screenSize" name="inst_screenSize" onchange="toggleOtherField('inst_screenSize','inst_screenSize_other')" required>
                                 <option value="">Select Screen Size</option>
                                 <option value="10&quot;">10"</option>
                                 <option value="15&quot;">15"</option>
                                 <option value="32&quot;">32"</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_screenSize_other" name="inst_screenSize_other" class="other-input" placeholder="Specify other screen size">
                         </div>
                         <div class="form-group">
                             <label for="inst_workflow">Workflow:</label>
-                            <select id="inst_workflow" name="inst_workflow" required>
+                            <select id="inst_workflow" name="inst_workflow" onchange="toggleOtherField('inst_workflow','inst_workflow_other')" required>
                                 <option value="">Select Workflow</option>
                                 <option value="ITSM Vending">ITSM Vending</option>
                                 <option value="Smart Workflow">Smart Workflow</option>
                                 <option value="GrabnGo">GrabnGo</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_workflow_other" name="inst_workflow_other" class="other-input" placeholder="Specify other workflow">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_authPayment">Authentication/Payment Device:</label>
-                            <select id="inst_authPayment" name="inst_authPayment" required>
+                            <select id="inst_authPayment" name="inst_authPayment" onchange="toggleOtherField('inst_authPayment','inst_authPayment_other')" required>
                                 <option value="">Select Device</option>
                                 <option value="Badge ID">Badge ID</option>
                                 <option value="Barcode Scanner">Barcode Scanner</option>
@@ -489,13 +204,14 @@
                                 <option value="Free Vend">Free Vend</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_authPayment_other" name="inst_authPayment_other" class="other-input" placeholder="Specify other device">
                         </div>
                         <div class="form-group">
                             <label for="inst_paymentConfig">Payment Device Configuration:</label>
                             <input type="text" id="inst_paymentConfig" name="inst_paymentConfig" placeholder="N/A">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_language">Language:</label>
@@ -510,42 +226,45 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_hosting">Hosting:</label>
-                            <select id="inst_hosting" name="inst_hosting" required>
+                            <select id="inst_hosting" name="inst_hosting" onchange="toggleOtherField('inst_hosting','inst_hosting_other')" required>
                                 <option value="">Select Hosting</option>
                                 <option value="Multi-Tenant Canada">Multi-Tenant Canada</option>
                                 <option value="Default Multi-Tenant">Default Multi-Tenant</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_hosting_other" name="inst_hosting_other" class="other-input" placeholder="Specify other hosting">
                         </div>
                         <div class="form-group">
                             <label for="inst_internetConnectivity">Internet Connectivity:</label>
-                            <select id="inst_internetConnectivity" name="inst_internetConnectivity" required>
+                            <select id="inst_internetConnectivity" name="inst_internetConnectivity" onchange="toggleOtherField('inst_internetConnectivity','inst_internetConnectivity_other')" required>
                                 <option value="">Select Connectivity</option>
                                 <option value="LAN">LAN</option>
                                 <option value="Wi-Fi Backup">Wi-Fi Backup</option>
                                 <option value="Optconnect">Optconnect</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_internetConnectivity_other" name="inst_internetConnectivity_other" class="other-input" placeholder="Specify other connectivity">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_voltage">Voltage:</label>
-                            <select id="inst_voltage" name="inst_voltage" required>
+                            <select id="inst_voltage" name="inst_voltage" onchange="toggleOtherField('inst_voltage','inst_voltage_other')" required>
                                 <option value="">Select Voltage</option>
                                 <option value="110V">110V</option>
                                 <option value="220V">220V</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_voltage_other" name="inst_voltage_other" class="other-input" placeholder="Specify other voltage">
                         </div>
                         <div class="form-group">
                             <label for="inst_plugType">Plug Type:</label>
-                            <select id="inst_plugType" name="inst_plugType" required>
+                            <select id="inst_plugType" name="inst_plugType" onchange="toggleOtherField('inst_plugType','inst_plugType_other')" required>
                                 <option value="">Select Plug Type</option>
                                 <option value="A">Type A</option>
                                 <option value="B">Type B</option>
@@ -554,13 +273,13 @@
                                 <option value="G">Type G</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="inst_plugType_other" name="inst_plugType_other" class="other-input" placeholder="Specify other plug type">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-contact">👥</span>Additional Details</h3>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_itSiteSurvey">IT Site Survey:</label>
@@ -576,7 +295,6 @@
                             <input type="text" id="inst_productTemplate" name="inst_productTemplate" placeholder="N/A">
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inst_uiPrevious">UI for Previous Deployments:</label>
@@ -587,12 +305,10 @@
                             <input type="url" id="inst_uiTaskLink" name="inst_uiTaskLink" placeholder="TBD">
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="inst_orientation">Orientation of the Vending/Locker:</label>
                         <input type="text" id="inst_orientation" name="inst_orientation" placeholder="N/A">
                     </div>
-                    
                     <div class="form-group">
                         <label for="inst_pointOfContact">Point of Contact (POC):</label>
                         <textarea id="inst_pointOfContact" name="inst_pointOfContact" placeholder="Name(s), phone number(s), and email(s)" required></textarea>
@@ -601,12 +317,10 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-special">⭐</span>Special Requirements</h3>
-                    
                     <div class="form-group">
                         <label for="inst_specialRequirements">Special Requirements:</label>
                         <textarea id="inst_specialRequirements" name="inst_specialRequirements" placeholder="Any specific callouts: tradeshow, demo mode, replanogramming, training, remote support, new hardware, etc."></textarea>
                     </div>
-                    
                     <div class="form-group">
                         <label for="inst_scopeOfWork">Scope of Work:</label>
                         <textarea id="inst_scopeOfWork" name="inst_scopeOfWork" placeholder="Detailed scope of work"></textarea>
@@ -618,12 +332,10 @@
             <div id="qaForm" class="template-form">
                 <div class="form-section">
                     <h3><span class="section-icon icon-qa">✅</span>QA Checklist Information<span class="template-badge badge-qa">QA</span></h3>
-                    
                     <div class="form-group">
                         <label for="qa_deploymentName">Deployment Name:</label>
                         <input type="text" id="qa_deploymentName" name="qa_deploymentName" required>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_salesOrder">Sales Order:</label>
@@ -634,7 +346,6 @@
                             <input type="date" id="qa_shippingDate" name="qa_shippingDate" required>
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="qa_vinylDate">Vinyl Date:</label>
                         <input type="date" id="qa_vinylDate" name="qa_vinylDate">
@@ -643,7 +354,6 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-info">📍</span>Location & Client Details</h3>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_naming">Naming:</label>
@@ -654,7 +364,6 @@
                             <textarea id="qa_address" name="qa_address" required></textarea>
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_channelPartner">Channel Partner (CP):</label>
@@ -669,56 +378,70 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-tech">🔧</span>Technical Specifications</h3>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_kioskType">Kiosk Type:</label>
-                            <select id="qa_kioskType" name="qa_kioskType" required>
+                            <select id="qa_kioskType" name="qa_kioskType" onchange="toggleOtherField('qa_kioskType','qa_kioskType_other')" required>
                                 <option value="">Select Kiosk Type</option>
                                 <option value="SparkXL">SparkXL</option>
-                                <option value="Companion">Companion</option>
-                                <option value="Enclosure">Enclosure</option>
+                                <option value="Spark Touch">Spark Touch</option>
+                                <option value="Retail Enclosure">Retail Enclosure</option>
+                                <option value="10'Smart Companion">10'Smart Companion</option>
+                                <option value="15'Smart Companion">15'Smart Companion</option>
+                                <option value="Control Locker">Control Locker</option>
+                                <option value="HDL Locker">HDL Locker</option>
+                                <option value="Stand Up Ted">Stand Up Ted</option>
+                                <option value="Sit-Down Ted">Sit-Down Ted</option>
+                                <option value="Smart Drawer">Smart Drawer</option>
+                                <option value="SK Dispenser">SK Dispenser</option>
+                                <option value="Wall-mount Kiosk">Wall-mount Kiosk</option>
+                                <option value="Key Locker">Key Locker</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_kioskType_other" name="qa_kioskType_other" class="other-input" placeholder="Specify other kiosk type">
                         </div>
                         <div class="form-group">
                             <label for="qa_vendingElevator">Vending Unit Elevator:</label>
-                            <select id="qa_vendingElevator" name="qa_vendingElevator" required>
+                            <select id="qa_vendingElevator" name="qa_vendingElevator" onchange="toggleOtherField('qa_vendingElevator','qa_vendingElevator_other')" required>
                                 <option value="">Select Option</option>
                                 <option value="Standard">Standard</option>
                                 <option value="Enhanced">Enhanced</option>
                                 <option value="N/A">N/A</option>
+                                <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_vendingElevator_other" name="qa_vendingElevator_other" class="other-input" placeholder="Specify other elevator">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_screenSize">Screen Size:</label>
-                            <select id="qa_screenSize" name="qa_screenSize" required>
+                            <select id="qa_screenSize" name="qa_screenSize" onchange="toggleOtherField('qa_screenSize','qa_screenSize_other')" required>
                                 <option value="">Select Screen Size</option>
                                 <option value="10&quot;">10"</option>
                                 <option value="15&quot;">15"</option>
                                 <option value="32&quot;">32"</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_screenSize_other" name="qa_screenSize_other" class="other-input" placeholder="Specify other screen size">
                         </div>
                         <div class="form-group">
                             <label for="qa_workflow">Workflow:</label>
-                            <select id="qa_workflow" name="qa_workflow" required>
+                            <select id="qa_workflow" name="qa_workflow" onchange="toggleOtherField('qa_workflow','qa_workflow_other')" required>
                                 <option value="">Select Workflow</option>
                                 <option value="ITSM Vending">ITSM Vending</option>
                                 <option value="Smart Workflow">Smart Workflow</option>
                                 <option value="GrabnGo">GrabnGo</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_workflow_other" name="qa_workflow_other" class="other-input" placeholder="Specify other workflow">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_authPayment">Authentication/Payment Device:</label>
-                            <select id="qa_authPayment" name="qa_authPayment" required>
+                            <select id="qa_authPayment" name="qa_authPayment" onchange="toggleOtherField('qa_authPayment','qa_authPayment_other')" required>
                                 <option value="">Select Device</option>
                                 <option value="Badge ID">Badge ID</option>
                                 <option value="Barcode Scanner">Barcode Scanner</option>
@@ -726,13 +449,14 @@
                                 <option value="Free Vend">Free Vend</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_authPayment_other" name="qa_authPayment_other" class="other-input" placeholder="Specify other device">
                         </div>
                         <div class="form-group">
                             <label for="qa_paymentDevice">Payment Device:</label>
                             <input type="text" id="qa_paymentDevice" name="qa_paymentDevice">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_language">Language:</label>
@@ -747,42 +471,45 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_hosting">Hosting:</label>
-                            <select id="qa_hosting" name="qa_hosting" required>
+                            <select id="qa_hosting" name="qa_hosting" onchange="toggleOtherField('qa_hosting','qa_hosting_other')" required>
                                 <option value="">Select Hosting</option>
                                 <option value="Multi-Tenant Canada">Multi-Tenant Canada</option>
                                 <option value="Default Multi-Tenant">Default Multi-Tenant</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_hosting_other" name="qa_hosting_other" class="other-input" placeholder="Specify other hosting">
                         </div>
                         <div class="form-group">
                             <label for="qa_internetConnectivity">Internet Connectivity:</label>
-                            <select id="qa_internetConnectivity" name="qa_internetConnectivity" required>
+                            <select id="qa_internetConnectivity" name="qa_internetConnectivity" onchange="toggleOtherField('qa_internetConnectivity','qa_internetConnectivity_other')" required>
                                 <option value="">Select Connectivity</option>
                                 <option value="LAN">LAN</option>
                                 <option value="Wi-Fi Backup">Wi-Fi Backup</option>
                                 <option value="Optconnect">Optconnect</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_internetConnectivity_other" name="qa_internetConnectivity_other" class="other-input" placeholder="Specify other connectivity">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_voltage">Voltage:</label>
-                            <select id="qa_voltage" name="qa_voltage" required>
+                            <select id="qa_voltage" name="qa_voltage" onchange="toggleOtherField('qa_voltage','qa_voltage_other')" required>
                                 <option value="">Select Voltage</option>
                                 <option value="110V">110V</option>
                                 <option value="220V">220V</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_voltage_other" name="qa_voltage_other" class="other-input" placeholder="Specify other voltage">
                         </div>
                         <div class="form-group">
                             <label for="qa_plugType">Plug Type:</label>
-                            <select id="qa_plugType" name="qa_plugType" required>
+                            <select id="qa_plugType" name="qa_plugType" onchange="toggleOtherField('qa_plugType','qa_plugType_other')" required>
                                 <option value="">Select Plug Type</option>
                                 <option value="A">Type A</option>
                                 <option value="B">Type B</option>
@@ -791,13 +518,13 @@
                                 <option value="G">Type G</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="qa_plugType_other" name="qa_plugType_other" class="other-input" placeholder="Specify other plug type">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-config">📋</span>Additional Configuration</h3>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_itSiteSurvey">IT Site Survey:</label>
@@ -813,7 +540,6 @@
                             <input type="text" id="qa_paymentConfig" name="qa_paymentConfig" placeholder="N/A">
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_productTemplate">Product Template:</label>
@@ -824,7 +550,6 @@
                             <input type="url" id="qa_uiPrevious" name="qa_uiPrevious" placeholder="N/A">
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="qa_uiTaskLink">UI Task Link:</label>
@@ -835,7 +560,6 @@
                             <input type="text" id="qa_orientation" name="qa_orientation" placeholder="N/A">
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="qa_specialRequirements">Special Requirements:</label>
                         <textarea id="qa_specialRequirements" name="qa_specialRequirements" placeholder="Any specific requirements or notes"></textarea>
@@ -847,7 +571,6 @@
             <div id="uiForm" class="template-form">
                 <div class="form-section">
                     <h3><span class="section-icon icon-ui">🎨</span>UI Request Details<span class="template-badge badge-ui">UI</span></h3>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ui_cp">Channel Partner (CP):</label>
@@ -858,44 +581,55 @@
                             <input type="text" id="ui_cx" name="ui_cx" required>
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ui_kioskType">Kiosk Type:</label>
-                            <select id="ui_kioskType" name="ui_kioskType" required>
+                            <select id="ui_kioskType" name="ui_kioskType" onchange="toggleOtherField('ui_kioskType','ui_kioskType_other')" required>
                                 <option value="">Select Kiosk Type</option>
                                 <option value="SparkXL">SparkXL</option>
-                                <option value="Companion">Companion</option>
-                                <option value="Enclosure">Enclosure</option>
+                                <option value="Spark Touch">Spark Touch</option>
+                                <option value="Retail Enclosure">Retail Enclosure</option>
+                                <option value="10'Smart Companion">10'Smart Companion</option>
+                                <option value="15'Smart Companion">15'Smart Companion</option>
+                                <option value="Control Locker">Control Locker</option>
+                                <option value="HDL Locker">HDL Locker</option>
+                                <option value="Stand Up Ted">Stand Up Ted</option>
+                                <option value="Sit-Down Ted">Sit-Down Ted</option>
+                                <option value="Smart Drawer">Smart Drawer</option>
+                                <option value="SK Dispenser">SK Dispenser</option>
+                                <option value="Wall-mount Kiosk">Wall-mount Kiosk</option>
+                                <option value="Key Locker">Key Locker</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="ui_kioskType_other" name="ui_kioskType_other" class="other-input" placeholder="Specify other kiosk type">
                         </div>
                         <div class="form-group">
                             <label for="ui_vendingElevator">Vending Unit Elevator:</label>
-                            <select id="ui_vendingElevator" name="ui_vendingElevator" required>
+                            <select id="ui_vendingElevator" name="ui_vendingElevator" onchange="toggleOtherField('ui_vendingElevator','ui_vendingElevator_other')" required>
                                 <option value="">Select Option</option>
                                 <option value="Standard">Standard</option>
                                 <option value="Enhanced">Enhanced</option>
                                 <option value="N/A">N/A</option>
+                                <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="ui_vendingElevator_other" name="ui_vendingElevator_other" class="other-input" placeholder="Specify other elevator">
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="ui_screenSize">Screen Size:</label>
-                        <select id="ui_screenSize" name="ui_screenSize" required>
+                        <select id="ui_screenSize" name="ui_screenSize" onchange="toggleOtherField('ui_screenSize','ui_screenSize_other')" required>
                             <option value="">Select Screen Size</option>
                             <option value="10&quot;">10"</option>
                             <option value="15&quot;">15"</option>
                             <option value="32&quot;">32"</option>
                             <option value="Other">Other</option>
                         </select>
+                        <input type="text" id="ui_screenSize_other" name="ui_screenSize_other" class="other-input" placeholder="Specify other screen size">
                     </div>
                 </div>
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-config">⚙️</span>Workflow & Authentication</h3>
-                    
                     <div class="form-group">
                         <label>Smart Workflows:</label>
                         <div class="checkbox-group">
@@ -917,11 +651,10 @@
                             <input type="text" id="ui_workflowOther" name="ui_workflowOther" placeholder="Specify other workflows">
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ui_authentication">Authentication:</label>
-                            <select id="ui_authentication" name="ui_authentication" required>
+                            <select id="ui_authentication" name="ui_authentication" onchange="toggleOtherField('ui_authentication','ui_authentication_other')" required>
                                 <option value="">Select Authentication</option>
                                 <option value="Badge ID">Badge ID</option>
                                 <option value="Barcode Scanner">Barcode Scanner</option>
@@ -929,6 +662,7 @@
                                 <option value="Free Vend">Free Vend</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="ui_authentication_other" name="ui_authentication_other" class="other-input" placeholder="Specify other authentication">
                         </div>
                         <div class="form-group">
                             <label for="ui_paymentDevice">Payment Device:</label>
@@ -939,7 +673,6 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-info">🌐</span>Language & Accessibility</h3>
-                    
                     <div class="form-group">
                         <label>Languages:</label>
                         <div class="checkbox-group">
@@ -961,7 +694,6 @@
                             <input type="text" id="ui_languageOther" name="ui_languageOther" placeholder="Specify other languages">
                         </div>
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ui_adaKeypad">ADA Keypad:</label>
@@ -984,23 +716,22 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-tech">🖥️</span>Hosting & Technical</h3>
-                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ui_hosting">Hosting:</label>
-                            <select id="ui_hosting" name="ui_hosting" required>
+                            <select id="ui_hosting" name="ui_hosting" onchange="toggleOtherField('ui_hosting','ui_hosting_other')" required>
                                 <option value="">Select Hosting</option>
                                 <option value="Multi-Tenant Canada">Multi-Tenant Canada</option>
                                 <option value="Default Multi-Tenant">Default Multi-Tenant</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <input type="text" id="ui_hosting_other" name="ui_hosting_other" class="other-input" placeholder="Specify other hosting">
                         </div>
                         <div class="form-group">
                             <label for="ui_visionUrl">Vision URL:</label>
                             <input type="url" id="ui_visionUrl" name="ui_visionUrl" placeholder="https://...">
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="ui_attachments">Attachments:</label>
                         <textarea id="ui_attachments" name="ui_attachments" placeholder="List any attachments or files provided"></textarea>
@@ -1009,7 +740,6 @@
 
                 <div class="form-section">
                     <h3><span class="section-icon icon-special">🎨</span>Branding & Documentation</h3>
-                    
                     <div class="form-group">
                         <label>Branding Documents Available:</label>
                         <div class="checkbox-group">
@@ -1031,7 +761,6 @@
                             <textarea id="ui_brandingOther" name="ui_brandingOther" placeholder="List any other branding materials provided by client"></textarea>
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="ui_sow">SOW (Scope of Work):</label>
                         <textarea id="ui_sow" name="ui_sow" placeholder="Detailed scope of work for UI requirements"></textarea>
@@ -1043,7 +772,7 @@
                 <button type="button" id="generateBtn" class="btn btn-primary">🚀 Generate Email</button>
                 <button type="button" id="clearBtn" class="btn btn-secondary">🗑️ Clear Form</button>
             </div>
-            
+
             <div id="emailPreview" class="email-preview">
                 <h3>📧 Generated Email Content</h3>
                 <div id="emailContent" class="email-content"></div>
@@ -1052,85 +781,99 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         // Template switching
         document.getElementById('templateSelect').addEventListener('change', function() {
             const selectedTemplate = this.value;
-            const forms = document.querySelectorAll('.template-form');
-            
-            forms.forEach(form => {
-                form.classList.remove('active');
-            });
-            
+            document.querySelectorAll('.template-form').forEach(f => f.classList.remove('active'));
             document.getElementById(selectedTemplate + 'Form').classList.add('active');
             document.getElementById('emailPreview').style.display = 'none';
         });
-        
+
         // Generate email button
         document.getElementById('generateBtn').addEventListener('click', function() {
             const activeTemplate = document.querySelector('.template-form.active').id;
-            
             switch(activeTemplate) {
-                case 'installationForm':
-                    generateInstallationEmail();
-                    break;
-                case 'qaForm':
-                    generateQAEmail();
-                    break;
-                case 'uiForm':
-                    generateUIEmail();
-                    break;
+                case 'installationForm': generateInstallationEmail(); break;
+                case 'qaForm': generateQAEmail(); break;
+                case 'uiForm': generateUIEmail(); break;
             }
         });
-        
+
         // Clear form button
         document.getElementById('clearBtn').addEventListener('click', function() {
             const activeForm = document.querySelector('.template-form.active');
             const inputs = activeForm.querySelectorAll('input, select, textarea');
-            
             inputs.forEach(input => {
-                if (input.type === 'checkbox') {
-                    input.checked = false;
-                } else {
-                    input.value = '';
-                }
+                if (input.type === 'checkbox') input.checked = false; else input.value = '';
                 localStorage.removeItem(`form_${input.name}`);
+                if (input.classList.contains('other-input')) input.style.display = 'none';
             });
-            
             document.getElementById('emailPreview').style.display = 'none';
         });
-        
+
         // Copy to clipboard
         document.getElementById('copyBtn').addEventListener('click', function() {
             const emailContent = document.getElementById('emailContent').textContent;
             navigator.clipboard.writeText(emailContent).then(function() {
                 const successMessage = document.getElementById('successMessage');
                 successMessage.style.display = 'block';
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 3000);
-            }).catch(function(err) {
-                alert('Failed to copy to clipboard. Please select and copy manually.');
-            });
+                setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+            }).catch(function() { alert('Failed to copy to clipboard. Please select and copy manually.'); });
         });
-        
+
+        // Helper: Date formatting
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+        }
+
+        // Helper: display email
+        function displayEmail(content) {
+            document.getElementById('emailContent').textContent = content;
+            document.getElementById('emailPreview').style.display = 'block';
+            document.getElementById('emailPreview').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle Other input visibility
+        function toggleOtherField(selectId, otherInputId) {
+            const select = document.getElementById(selectId);
+            const otherInput = document.getElementById(otherInputId);
+            if (select && otherInput) {
+                if (select.value === 'Other') {
+                    otherInput.style.display = 'block';
+                } else {
+                    otherInput.style.display = 'none';
+                    otherInput.value = '';
+                }
+            }
+        }
+
         // Generate Installation Email
         function generateInstallationEmail() {
             const form = document.getElementById('installationForm');
             const formData = new FormData(form);
             const data = {};
-            
-            for (let [key, value] of formData.entries()) {
-                data[key] = value || 'N/A';
-            }
-            
-            // Format dates
+            for (let [key, value] of formData.entries()) { data[key] = value || 'N/A'; }
+
+            // apply Other overrides
+            if (data.inst_kioskType === 'Other' && data.inst_kioskType_other) data.inst_kioskType = data.inst_kioskType_other;
+            if (data.inst_screenSize === 'Other' && data.inst_screenSize_other) data.inst_screenSize = data.inst_screenSize_other;
+            if (data.inst_workflow === 'Other' && data.inst_workflow_other) data.inst_workflow = data.inst_workflow_other;
+            if (data.inst_authPayment === 'Other' && data.inst_authPayment_other) data.inst_authPayment = data.inst_authPayment_other;
+            if (data.inst_hosting === 'Other' && data.inst_hosting_other) data.inst_hosting = data.inst_hosting_other;
+            if (data.inst_internetConnectivity === 'Other' && data.inst_internetConnectivity_other) data.inst_internetConnectivity = data.inst_internetConnectivity_other;
+            if (data.inst_voltage === 'Other' && data.inst_voltage_other) data.inst_voltage = data.inst_voltage_other;
+            if (data.inst_plugType === 'Other' && data.inst_plugType_other) data.inst_plugType = data.inst_plugType_other;
+
+            // dates
             if (data.inst_shippingDate) data.inst_shippingDate = formatDate(data.inst_shippingDate);
             if (data.inst_deliveryDate) data.inst_deliveryDate = formatDate(data.inst_deliveryDate);
             if (data.inst_installationDate) data.inst_installationDate = formatDate(data.inst_installationDate);
             if (data.inst_vinylDate) data.inst_vinylDate = formatDate(data.inst_vinylDate);
-            
+
             const emailContent = `Subject: Installation Ticket – ${data.inst_clientEvent}
 
 Installation Ticket – ${data.inst_clientEvent}
@@ -1165,24 +908,30 @@ Installation Ticket – ${data.inst_clientEvent}
 Special Requirements: ${data.inst_specialRequirements}
 
 Scope of Work: ${data.inst_scopeOfWork}`;
-            
             displayEmail(emailContent);
         }
-        
+
         // Generate QA Email
         function generateQAEmail() {
             const form = document.getElementById('qaForm');
             const formData = new FormData(form);
             const data = {};
-            
-            for (let [key, value] of formData.entries()) {
-                data[key] = value || 'N/A';
-            }
-            
-            // Format dates
+            for (let [key, value] of formData.entries()) { data[key] = value || 'N/A'; }
+
+            // apply Other overrides
+            if (data.qa_kioskType === 'Other' && data.qa_kioskType_other) data.qa_kioskType = data.qa_kioskType_other;
+            if (data.qa_vendingElevator === 'Other' && data.qa_vendingElevator_other) data.qa_vendingElevator = data.qa_vendingElevator_other;
+            if (data.qa_screenSize === 'Other' && data.qa_screenSize_other) data.qa_screenSize = data.qa_screenSize_other;
+            if (data.qa_workflow === 'Other' && data.qa_workflow_other) data.qa_workflow = data.qa_workflow_other;
+            if (data.qa_authPayment === 'Other' && data.qa_authPayment_other) data.qa_authPayment = data.qa_authPayment_other;
+            if (data.qa_hosting === 'Other' && data.qa_hosting_other) data.qa_hosting = data.qa_hosting_other;
+            if (data.qa_internetConnectivity === 'Other' && data.qa_internetConnectivity_other) data.qa_internetConnectivity = data.qa_internetConnectivity_other;
+            if (data.qa_voltage === 'Other' && data.qa_voltage_other) data.qa_voltage = data.qa_voltage_other;
+            if (data.qa_plugType === 'Other' && data.qa_plugType_other) data.qa_plugType = data.qa_plugType_other;
+
             if (data.qa_shippingDate) data.qa_shippingDate = formatDate(data.qa_shippingDate);
             if (data.qa_vinylDate) data.qa_vinylDate = formatDate(data.qa_vinylDate);
-            
+
             const emailContent = `Subject: QA Checklist – ${data.qa_deploymentName}
 
 QA Checklist – ${data.qa_deploymentName}
@@ -1237,48 +986,36 @@ Voltage: ${data.qa_voltage}
 Plug Type: ${data.qa_plugType}
 
 Special Requirements: ${data.qa_specialRequirements}`;
-            
             displayEmail(emailContent);
         }
-        
+
         // Generate UI Email
         function generateUIEmail() {
             const form = document.getElementById('uiForm');
             const formData = new FormData(form);
             const data = {};
-            
-            // Handle regular form data
             for (let [key, value] of formData.entries()) {
-                if (key.includes('workflows') || key.includes('languages') || key.includes('branding')) {
-                    // Handle checkboxes separately
-                    continue;
-                }
+                if (key.includes('workflows') || key.includes('languages') || key.includes('branding')) continue;
                 data[key] = value || 'N/A';
             }
-            
-            // Handle checkboxes
             const workflows = Array.from(form.querySelectorAll('input[name="ui_workflows"]:checked')).map(cb => cb.value);
             const languages = Array.from(form.querySelectorAll('input[name="ui_languages"]:checked')).map(cb => cb.value);
             const branding = Array.from(form.querySelectorAll('input[name="ui_branding"]:checked')).map(cb => cb.value);
-            
-            // Combine workflows
+
+            // Other overrides for UI
+            if (data.ui_kioskType === 'Other' && data.ui_kioskType_other) data.ui_kioskType = data.ui_kioskType_other;
+            if (data.ui_vendingElevator === 'Other' && data.ui_vendingElevator_other) data.ui_vendingElevator = data.ui_vendingElevator_other;
+            if (data.ui_screenSize === 'Other' && data.ui_screenSize_other) data.ui_screenSize = data.ui_screenSize_other;
+            if (data.ui_authentication === 'Other' && data.ui_authentication_other) data.ui_authentication = data.ui_authentication_other;
+            if (data.ui_hosting === 'Other' && data.ui_hosting_other) data.ui_hosting = data.ui_hosting_other;
+
             let workflowList = workflows.join(', ');
-            if (data.ui_workflowOther && data.ui_workflowOther !== 'N/A') {
-                workflowList += (workflowList ? ', ' : '') + data.ui_workflowOther;
-            }
-            
-            // Combine languages
+            if (data.ui_workflowOther && data.ui_workflowOther !== 'N/A') workflowList += (workflowList ? ', ' : '') + data.ui_workflowOther;
             let languageList = languages.join(', ');
-            if (data.ui_languageOther && data.ui_languageOther !== 'N/A') {
-                languageList += (languageList ? ', ' : '') + data.ui_languageOther;
-            }
-            
-            // Combine branding
+            if (data.ui_languageOther && data.ui_languageOther !== 'N/A') languageList += (languageList ? ', ' : '') + data.ui_languageOther;
             let brandingList = branding.join(', ');
-            if (data.ui_brandingOther && data.ui_brandingOther !== 'N/A') {
-                brandingList += (brandingList ? ', ' : '') + data.ui_brandingOther;
-            }
-            
+            if (data.ui_brandingOther && data.ui_brandingOther !== 'N/A') brandingList += (brandingList ? ', ' : '') + data.ui_brandingOther;
+
             const emailContent = `Subject: UI Request
 
 UI Request
@@ -1299,48 +1036,21 @@ Vision URL: ${data.ui_visionUrl}
 Attachments: ${data.ui_attachments}
 Branding Documents: ${brandingList || 'N/A'}
 SOW: ${data.ui_sow}`;
-            
             displayEmail(emailContent);
         }
-        
-        // Helper functions
-        function formatDate(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-        }
-        
-        function displayEmail(content) {
-            document.getElementById('emailContent').textContent = content;
-            document.getElementById('emailPreview').style.display = 'block';
-            document.getElementById('emailPreview').scrollIntoView({ behavior: 'smooth' });
-        }
-        
+
         // Auto-save functionality
         const allInputs = document.querySelectorAll('input, select, textarea');
-        
         allInputs.forEach(input => {
-            // Load saved data
             const savedValue = localStorage.getItem(`form_${input.name}`);
             if (savedValue && input.type !== 'date') {
-                if (input.type === 'checkbox') {
-                    input.checked = savedValue === 'true';
-                } else {
-                    input.value = savedValue;
-                }
+                if (input.type === 'checkbox') input.checked = savedValue === 'true';
+                else input.value = savedValue;
+                if (input.classList.contains('other-input') && input.value) input.style.display = 'block';
             }
-            
-            // Save data on change
             input.addEventListener('change', () => {
-                if (input.type === 'checkbox') {
-                    localStorage.setItem(`form_${input.name}`, input.checked);
-                } else {
-                    localStorage.setItem(`form_${input.name}`, input.value);
-                }
+                if (input.type === 'checkbox') localStorage.setItem(`form_${input.name}`, input.checked);
+                else localStorage.setItem(`form_${input.name}`, input.value);
             });
         });
     </script>
